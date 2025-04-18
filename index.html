@@ -20,8 +20,8 @@
       perPint: function() { return this.perLitre() / 1.759754 },
       gp70: function() { return this.perPint() / 0.3 },
       gp: function() { return (1-(this.perPint()/this.price)) * 100 },
-      half: function() { return this.price * 0.666666666 },
-      twoThirds: function() { return this.price / 2 },
+      twoThirds: function() { return this.price * 0.666666666 },
+      half: function() { return this.price / 2 },
     };
 
     var BeerCacl = {
