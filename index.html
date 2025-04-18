@@ -1,41 +1,57 @@
-<body>
-	<script src="https://unpkg.com/mithril/mithril.js"></script>
-	<script>
-	var root = document.body
-  var cost = {
-    exVat: 80,
-    size: 30,
-    price: 6,
-    incVat: function() { return this.exVat * 1.2 },
-    perLitre: function() { return  this.incVat() / this.size },
-    perPint: function() { return this.perLitre() / 1.759754 },
-    gp70: function() { return this.perPint() / 0.3 },
-    gp: function() { return (1-(this.perPint()/this.price)) },
-    half: function() { return this.price * 0.666666666 },
-    twoThirds: function() { return this.price / 2 },
-  };
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
+    <title>Hello world!</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/mithril/mithril.js"></script>
+    <script>
+    var root = document.body
+    var Cost = {
+      exVat: 80,
+      size: 30,
+      price: 6,
+      incVat: function() { return this.exVat * 1.2 },
+      perLitre: function() { return  this.incVat() / this.size },
+      perPint: function() { return this.perLitre() / 1.759754 },
+      gp70: function() { return this.perPint() / 0.3 },
+      gp: function() { return (1-(this.perPint()/this.price)) * 100 },
+      half: function() { return this.price * 0.666666666 },
+      twoThirds: function() { return this.price / 2 },
+    };
 
-var BeerCacl = {
-    view: function() {
+    var BeerCacl = {
+      view: function() {
         return m("main", [
-            m("h1", {
-                class: "title"
-            }, "Beer Cost"),
-            m("input", { value: cost.exVat, oninput: function(e) { cost.exVat = e.target.value} }),
-            m("input", { value: cost.size, oninput: function(e) { cost.size = e.target.value} }),
-            m("input", { value: cost.price, oninput: function(e) { cost.price = e.target.value} }),
-            m("div", "Inc Vat: " + cost.incVat()),
-            m("div", "Per Litre: " + cost.perLitre()),
-            m("div", "Per Pint: " + cost.perPint()),
-            m("div", "At GP 70%: " + cost.gp70()),
-            m("div", "GP: " + cost.gp()),
-            m("div", "Two Thirds: " + cost.twoThirds()),
-            m("div", "Half: " + cost.half()),
+          m("h1", { class: "title" }, "Beer Cost"),
+          m("label",
+            "Cost Ex VAT",
+            m("input[type=number", { value: Cost.exVat, oninput: function(e) { Cost.exVat = e.target.value} })
+          ),
+          m("label",
+            "Size in Litres",
+            m("input[type=number", { value: Cost.size, oninput: function(e) { Cost.size = e.target.value} }),
+          ),
+          m("p", "Cost Inc Vat: £" + Cost.incVat().toFixed(2)),
+          m("p", "Cost Per Litre: £" + Cost.perLitre().toFixed(2)),
+          m("p", "Cost Per Pint: £" + Cost.perPint().toFixed(2)),
+          m("p", "Price At GP 70%: £" + Cost.gp70().toFixed(2)),
+          m("label",
+            "Our Price",
+            m("input[type=number", { value: Cost.price, oninput: function(e) { Cost.price = e.target.value} }),
+          ),
+          m("p", "GP at our Price: " + Cost.gp().toFixed(2)+ "%"),
+          m("p", "Two Thirds: £" + Cost.twoThirds().toFixed(2)),
+          m("p", "Half: £" + Cost.half().toFixed(2)),
         ])
+      }
     }
-}
 
-  m.mount(root, BeerCacl)
-	</script>
-</body>
-
+    m.mount(root, BeerCacl)
+    </script>
+  </body>
+</html>
