@@ -1,0 +1,41 @@
+<body>
+	<script src="https://unpkg.com/mithril/mithril.js"></script>
+	<script>
+	var root = document.body
+  var cost = {
+    exVat: 80,
+    size: 30,
+    price: 6,
+    incVat: function() { return this.exVat * 1.2 },
+    perLitre: function() { return  this.incVat() / this.size },
+    perPint: function() { return this.perLitre() / 1.759754 },
+    gp70: function() { return this.perPint() / 0.3 },
+    gp: function() { return (1-(this.perPint()/this.price)) },
+    half: function() { return this.price * 0.666666666 },
+    twoThirds: function() { return this.price / 2 },
+  };
+
+var BeerCacl = {
+    view: function() {
+        return m("main", [
+            m("h1", {
+                class: "title"
+            }, "Beer Cost"),
+            m("input", { value: cost.exVat, oninput: function(e) { cost.exVat = e.target.value} }),
+            m("input", { value: cost.size, oninput: function(e) { cost.size = e.target.value} }),
+            m("input", { value: cost.price, oninput: function(e) { cost.price = e.target.value} }),
+            m("div", "Inc Vat: " + cost.incVat()),
+            m("div", "Per Litre: " + cost.perLitre()),
+            m("div", "Per Pint: " + cost.perPint()),
+            m("div", "At GP 70%: " + cost.gp70()),
+            m("div", "GP: " + cost.gp()),
+            m("div", "Two Thirds: " + cost.twoThirds()),
+            m("div", "Half: " + cost.half()),
+        ])
+    }
+}
+
+  m.mount(root, BeerCacl)
+	</script>
+</body>
+
