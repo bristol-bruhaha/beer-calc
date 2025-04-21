@@ -11,6 +11,9 @@
     <script src="https://unpkg.com/mithril/mithril.js"></script>
     <script>
     var root = document.body
+    function roundTo25p(amount) {
+      return Math.round( amount / 0.25) * 0.25
+    }
     var Cost = {
       exVat: 80,
       size: 30,
@@ -20,8 +23,8 @@
       perPint: function() { return this.perLitre() / 1.759754 },
       gp70: function() { return this.perPint() / 0.3 },
       gp: function() { return (1-(this.perPint()/this.price)) * 100 },
-      twoThirds: function() { return this.price * 0.666666666 },
-      half: function() { return this.price / 2 },
+      twoThirds: function() { return roundTo25p(this.price * 0.666666666) },
+      half: function() { return roundTo25p(this.price / 2) },
     };
 
     var BeerCacl = {
@@ -41,7 +44,7 @@
           m("p", "Cost Per Pint: £" + Cost.perPint().toFixed(2)),
           m("p", "Price At GP 70%: £" + Cost.gp70().toFixed(2)),
           m("label",
-            "Our Price",
+            "Our Price per pint",
             m("input[type=number", { value: Cost.price, oninput: function(e) { Cost.price = e.target.value} }),
           ),
           m("p", "GP at our Price: " + Cost.gp().toFixed(2)+ "%"),
