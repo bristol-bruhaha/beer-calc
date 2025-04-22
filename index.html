@@ -11,11 +11,11 @@
     <script src="https://unpkg.com/mithril/mithril.js"></script>
     <script>
     var root = document.body
-    function roundTo25p(amount) {
-      return Math.ceil( amount / 0.25) * 0.25
+    function roundTo5p(amount) {
+      return Math.ceil( amount / 0.05) * 0.05
     }
     var Cost = {
-      exVat: 80,
+      exVat: 80.00,
       size: 30,
       price: 6,
       incVat: function() { return this.exVat * 1.2 },
@@ -23,8 +23,8 @@
       perPint: function() { return this.perLitre() / 1.759754 },
       gp70: function() { return this.perPint() / 0.3 },
       gp: function() { return (1-(this.perPint()/this.price)) * 100 },
-      twoThirds: function() { return roundTo25p(this.price * 0.666666666) },
-      half: function() { return roundTo25p(this.price / 2) },
+      twoThirds: function() { return roundTo5p(this.price * 0.666666666) },
+      half: function() { return roundTo5p(this.price / 2) },
     };
 
     var BeerCacl = {
@@ -33,7 +33,7 @@
           m("h1", { class: "title" }, "Beer Cost"),
           m("label",
             "Cost Ex VAT",
-            m("input[type=number]", { value: Cost.exVat, oninput: function(e) { Cost.exVat = e.target.value} })
+            m("input[type=number]", {  inputmode: "decimal", min: 0, step: 0.01, value: Cost.exVat, oninput: function(e) { Cost.exVat = e.target.value} })
           ),
           m("label",
             "Size in Litres",
@@ -45,7 +45,7 @@
           m("p", "Price At GP 70%: £" + Cost.gp70().toFixed(2)),
           m("label",
             "Our Price per pint",
-            m("input[type=number]", { value: Cost.price, oninput: function(e) { Cost.price = e.target.value} }),
+            m("input[type=number]", { inputmode: "decimal", min: 0, step: 0.25, value: Cost.price, oninput: function(e) { Cost.price = e.target.value} }),
           ),
           m("p", "GP at our Price: " + Cost.gp().toFixed(2)+ "%"),
           m("p", "Two Thirds: £" + Cost.twoThirds().toFixed(2)),
