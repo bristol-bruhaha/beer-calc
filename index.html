@@ -33,11 +33,11 @@
           m("h1", { class: "title" }, "Beer Cost"),
           m("label",
             "Cost Ex VAT",
-            m("input[type=number", { value: Cost.exVat, oninput: function(e) { Cost.exVat = e.target.value} })
+            m("input[type=number]", { value: Cost.exVat, oninput: function(e) { Cost.exVat = e.target.value} })
           ),
           m("label",
             "Size in Litres",
-            m("input[type=number", { value: Cost.size, oninput: function(e) { Cost.size = e.target.value} }),
+            m("input[type=number]", { value: Cost.size, oninput: function(e) { Cost.size = e.target.value} }),
           ),
           m("p", "Cost Inc Vat: £" + Cost.incVat().toFixed(2)),
           m("p", "Cost Per Litre: £" + Cost.perLitre().toFixed(2)),
@@ -45,7 +45,7 @@
           m("p", "Price At GP 70%: £" + Cost.gp70().toFixed(2)),
           m("label",
             "Our Price per pint",
-            m("input[type=number", { value: Cost.price, oninput: function(e) { Cost.price = e.target.value} }),
+            m("input[type=number]", { value: Cost.price, oninput: function(e) { Cost.price = e.target.value} }),
           ),
           m("p", "GP at our Price: " + Cost.gp().toFixed(2)+ "%"),
           m("p", "Two Thirds: £" + Cost.twoThirds().toFixed(2)),
